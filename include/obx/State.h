@@ -1,8 +1,10 @@
-#pragma once
+#ifndef __STATE_H__
+#define __STATE_H__
 
 #include "fwd_decl.h"
 
 #include <cstdint>
+#include <vector>
 
 namespace obx {
 namespace {
@@ -23,13 +25,19 @@ class State {
 
 		Mode mode = Mode::OUTSIDE;
 		const Observer* observerPtr = nullptr;
+		std::vector<const Autorun*> pendingAutoruns;
+
+		void addAutorun(const Autorun* autorun);
 
 		friend class obx::Canary;
 		friend class obx::ActionCanary;
 		friend class obx::ObserverCanary;
+		friend class obx::Autorun;
 };
 
 extern State state;
 
 }
 }
+
+#endif

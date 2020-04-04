@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __LOG_H__
+#define __LOG_H__
 
 #include <cstdint>
 #include <string>
@@ -15,7 +16,7 @@ namespace {
 	};
 
 	#ifndef GLOBAL_LOG_LEVEL
-		#define GLOBAL_LOG_LEVEL DEBUG
+		#define GLOBAL_LOG_LEVEL INFO
 	#endif
 
 	inline constexpr LogLevel globalLogLevel = LogLevel::GLOBAL_LOG_LEVEL;
@@ -44,3 +45,5 @@ namespace {
 
 }
 }
+
+#endif

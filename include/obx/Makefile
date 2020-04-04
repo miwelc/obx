@@ -34,4 +34,4 @@ $(OBJDIR)/%.o:	$(SRCDIR)/%.cpp
 	$(CXX) -c $(CPPFLAGS) $< -o $@ -include obx.h
 
 clean:
-	rm -rf $(OBJDIR)/* $(LIBDIR)/obx.a
+	rm -rf $(OBJDIR)/ $(LIBDIR)/obx.a

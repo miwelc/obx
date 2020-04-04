@@ -1,30 +1,26 @@
-#pragma once
+#ifndef __COMPUTED_H__
+#define __COMPUTED_H__
 
 #include "fwd_decl.h"
 
-#include <iostream>
+#include "log.h"
 
 namespace obx {
 
 template<class T>
-class Computed : public Observer, protected IObservable {
+class Computed : protected Observer, protected IObservable {
 	public:
 		Computed(const std::function<T(void)>& f)
 			: Observer([this, f]() { val = f(); }) { }
 		Computed(std::function<T(void)>&& f)
 			: Observer([this, f = std::move(f)]() { val = f(); }) { }
-		Computed(Computed&&) = default;
+		Computed(Computed&&) = delete;
 		Computed(const Computed&) = delete;
 
-		virtual void markAsTainted() const override {
-			Observer::markAsTainted();
-			IObservable::invalidateObservers();
-		}
-
 		const T& operator()() {
-			std::cout << "\t\tRead Computed" << std::endl;
+			log<LogLevel::DEBUG>("\t\tRead Computed\n");
 			if(Observer::tainted) {
-				std::cout << "\t\tComputing" << std::endl;
+				log<LogLevel::DEBUG>("\t\tComputing\n");
 				Observer::observe();
 			}
 			IObservable::markAsObserved();
@@ -32,8 +28,16 @@ class Computed : public Observer, protected IObservable {
 		}
 		operator const T&() { return this->operator()(); }
 
+	protected:
+		virtual void markAsTainted() const override {
+			Observer::markAsTainted();
+			IObservable::invalidateObservers();
+		}
+
 	private:
 		T val;
 };
 
 }
+
+#endif

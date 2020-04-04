@@ -2,9 +2,15 @@
 
 #include <cstdint>
 
+using namespace std::string_literals;
+
 int main(int argc, char* argv[]) {
 	obx::Observable n = 3;
-	obx::Observable<std::string> str = "maaaalas";
+	obx::Observable str = "maaaalas"s;
+
+	obx::Autorun a([&]() {
+		std::cout << "Nuevo valor de n: " << n << std::endl;
+	});
 
 	obx::Computed<uint32_t> computedN([&]() {
 		return n + 1;

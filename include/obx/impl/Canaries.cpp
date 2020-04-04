@@ -4,6 +4,8 @@
 #include "../Canaries.h"
 #include "../State.h"
 
+#include "../Autorun.h"
+
 #include "../log.h"
 
 namespace obx {
@@ -16,7 +18,7 @@ Canary::~Canary() { obx::state.mode = oldStateMode; }
 // ActionCanary
 
 namespace {
-	inline uint32_t ActionCannaryestingLevels = 0;
+	inline uint32_t ActionCannaryNestingLevels = 0;
 }
 
 ActionCanary::ActionCanary() {
@@ -24,12 +26,15 @@ ActionCanary::ActionCanary() {
 		log<LogLevel::EXCEPTION>("Cannot run action inside an observer");
 	}
 	obx::state.mode = State::Mode::ACTION;
-	ActionCannaryestingLevels++;
+	ActionCannaryNestingLevels++;
 }
 
-ActionCanary::~ActionCanary() {
-	if(--ActionCannaryestingLevels == 0) {
-		// RUN REACTIONS
+ActionCanary::~ActionCanary() noexcept(false) {
+	if(--ActionCannaryNestingLevels == 0) {
+		for(const auto autorun : obx::state.pendingAutoruns) {
+			autorun->run();
+		}
+		obx::state.pendingAutoruns.clear();
 	}
 }
 

@@ -2,6 +2,7 @@
 
 namespace obx {
 	class Observer;
+	class Autorun;
 	class IObservable;
 	template<class T> class Observable;
 	template<class T> class Computed;

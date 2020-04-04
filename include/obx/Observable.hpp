@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __OBSERVABLE_HPP__
+#define __OBSERVABLE_HPP__
 
 #include "fwd_decl.h"
 
@@ -12,6 +13,10 @@ namespace obx {
 
 class IObservable {
 	public:
+		IObservable(const IObservable&) = delete;
+		IObservable(IObservable&&) = delete;
+
+		bool isBeingObserved() const;
 		void markAsObserved() const;
 		void invalidateObservers() const;
 
@@ -63,3 +68,5 @@ class Observable : IObservable {
 };
 
 }
+
+#endif

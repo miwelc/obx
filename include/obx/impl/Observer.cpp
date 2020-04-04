@@ -11,7 +11,9 @@ namespace obx {
 Observer::Observer(const std::function<void(void)>& f) : f(f) { }
 Observer::Observer(std::function<void(void)>&& f) : f(std::move(f)) { }
 
-void Observer::observe() {
+Observer::~Observer() { stopObserving(); }
+
+void Observer::observe() const {
 	ObserverCanary observerCanary(this);
 	stopObserving();
 	f();

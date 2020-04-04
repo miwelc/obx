@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __OBSERVER_H__
+#define __OBSERVER_H__
 
 #include "fwd_decl.h"
 
@@ -11,12 +12,12 @@ class Observer {
 	public:
 		Observer(const std::function<void(void)>& f);
 		Observer(std::function<void(void)>&& f);
-		Observer(Observer&&) = default;
+		Observer(Observer&&) = delete;
 		Observer(const Observer&) = delete;
 
-		~Observer() { stopObserving(); }
+		~Observer();
 
-		void observe();
+		void observe() const;
 		void stopObserving() const;
 
 		bool isTainted() const;
@@ -33,3 +34,5 @@ class Observer {
 };
 
 }
+
+#endif

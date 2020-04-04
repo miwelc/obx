@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CANARIES_H__
+#define __CANARIES_H__
 
 #include "fwd_decl.h"
 
@@ -18,7 +19,7 @@ class Canary {
 class ActionCanary : Canary {
 	public:
 		ActionCanary();
-		~ActionCanary();
+		~ActionCanary() noexcept(false);
 };
 
 class ObserverCanary : Canary {
@@ -32,3 +33,5 @@ class ObserverCanary : Canary {
 
 }
 }
+
+#endif

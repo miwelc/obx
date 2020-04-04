@@ -1,5 +1,5 @@
-#ifndef __OBSERVABLES_CPP__
-#define __OBSERVABLES_CPP__
+#ifndef __OBSERVABLE_CPP__
+#define __OBSERVABLE_CPP__
 
 #include "../observable.hpp"
 
@@ -7,6 +7,10 @@
 #include "../Observer.h"
 
 namespace obx {
+
+bool IObservable::isBeingObserved() const {
+	return !observers.empty();
+}
 
 void IObservable::markAsObserved() const {
 	if(obx::state.isInObserver()) {
