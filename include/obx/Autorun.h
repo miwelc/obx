@@ -1,7 +1,9 @@
 #ifndef __AUTORUN_H__
 #define __AUTORUN_H__
 
-#include "Observer.h"
+#include "fwd_decl.h"
+
+#include <functional>
 
 namespace obx {
 
@@ -17,11 +19,10 @@ class Autorun : protected Observer {
 
 	protected:
 		virtual void markAsTainted() const override;
+		virtual void run() const;
 
-	private:
-		void run() const;
-		friend class obx::ActionCanary;
-		friend class obx::State;
+	friend class obx::ActionCanary;
+	friend class obx::State;
 };
 
 }

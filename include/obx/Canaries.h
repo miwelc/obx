@@ -12,7 +12,6 @@ class Canary {
 	protected:
 		Canary();
 		~Canary();
-	private:
 		State::Mode oldStateMode;
 };
 

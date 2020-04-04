@@ -4,7 +4,7 @@
 #include "fwd_decl.h"
 
 #include <cstdint>
-#include <vector>
+#include <unordered_set>
 
 namespace obx {
 namespace {
@@ -25,14 +25,14 @@ class State {
 
 		Mode mode = Mode::OUTSIDE;
 		const Observer* observerPtr = nullptr;
-		std::vector<const Autorun*> pendingAutoruns;
+		std::unordered_set<const Autorun*> pendingAutoruns;
 
 		void addAutorun(const Autorun* autorun);
 
-		friend class obx::Canary;
-		friend class obx::ActionCanary;
-		friend class obx::ObserverCanary;
-		friend class obx::Autorun;
+	friend class obx::Canary;
+	friend class obx::ActionCanary;
+	friend class obx::ObserverCanary;
+	friend class obx::Autorun;
 };
 
 extern State state;

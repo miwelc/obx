@@ -27,7 +27,7 @@ class IObservable {
 		void addObserver(const Observer* observer) const;
 		void removeObserver(const Observer* observer) const;
 
-		friend class obx::Observer;
+	friend class obx::Observer;
 };
 
 template<class T>

@@ -11,7 +11,7 @@ const Observer* State::currentObserver() const {
 }
 
 void State::addAutorun(const Autorun* autorun) {
-	pendingAutoruns.push_back(autorun);
+	pendingAutoruns.insert(autorun);
 }
 
 inline State state{};

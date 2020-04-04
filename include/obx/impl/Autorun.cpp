@@ -2,6 +2,7 @@
 #define __AUTORUN_CPP__
 
 #include "../Autorun.h"
+#include "../Observer.h"
 
 namespace obx {
 

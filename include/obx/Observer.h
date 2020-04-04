@@ -30,7 +30,7 @@ class Observer {
 
 		void addObservable(const IObservable* observable) const;
 
-		friend class obx::IObservable;
+	friend class obx::IObservable;
 };
 
 }

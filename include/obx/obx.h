@@ -13,6 +13,7 @@
 #include "Observer.h"
 #include "Computed.hpp"
 #include "Autorun.h"
+#include "Reaction.h"
 #include "Canaries.h"
 #include "utils.h"
 
@@ -22,6 +23,7 @@
 #include "impl/Observable.cpp"
 #include "impl/Observer.cpp"
 #include "impl/Autorun.cpp"
+#include "impl/Reaction.cpp"
 #include "impl/Canaries.cpp"
 #include "impl/utils.cpp"
 

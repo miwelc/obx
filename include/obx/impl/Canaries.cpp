@@ -31,6 +31,8 @@ ActionCanary::ActionCanary() {
 
 ActionCanary::~ActionCanary() noexcept(false) {
 	if(--ActionCannaryNestingLevels == 0) {
+		obx::state.mode = Canary::oldStateMode;
+
 		for(const auto autorun : obx::state.pendingAutoruns) {
 			autorun->run();
 		}

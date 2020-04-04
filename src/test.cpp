@@ -12,6 +12,10 @@ int main(int argc, char* argv[]) {
 		std::cout << "Nuevo valor de n: " << n << std::endl;
 	});
 
+	obx::Reaction r([&]() { str(); }, [&]() {
+		std::cout << "solo trackeamos str (" << str() << ") pero no n (" << n << ")" << std::endl;
+	});
+
 	obx::Computed<uint32_t> computedN([&]() {
 		return n + 1;
 	});
