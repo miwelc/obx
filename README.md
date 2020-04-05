@@ -6,6 +6,14 @@
   - These modified *observables* trigger changes in other derived *observables* (*computed values*).
   - *Observers* that use a modified *observable* get notified.
 
+This library may be used as header-only by just including `obx/obx.h`. Or compiled by:
+```sh
+cd include/obx
+make clean && make
+```
+This will produce a `libobx.a` that can be statically linked to your application.
+When using the library this way, don't forget to globally define `OBX_AS_LIB`. You can do that as a compiler flag `-D OBX_AS_LIB` or adding a `#define OBX_AS_LIB` on top of `obx/obx.h`.
+
 ### Observables
 *Observables* wrap some state that may be *observed* (tracked for changes).
 
