@@ -21,7 +21,7 @@ OBJS += $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(shell find $(SRCDIR) -name '*
 OBJDIRS = $(call uniq,$(dir $(OBJS)))
 OBJDIRS += $(LIBDIR)
 
-$(LIBDIR)/obx.a: $(OBJS)
+$(LIBDIR)/libobx.a: $(OBJS)
 	$(AR) crvs $@ $(OBJS)
 	@echo "Compiled successfully"
 
@@ -34,4 +34,4 @@ $(OBJDIR)/%.o:	$(SRCDIR)/%.cpp
 	$(CXX) -c $(CPPFLAGS) $< -o $@ -include obx.h
 
 clean:
-	rm -rf $(OBJDIR)/ $(LIBDIR)/obx.a
+	rm -rf $(OBJDIR)/ $(LIBDIR)/libobx.a
