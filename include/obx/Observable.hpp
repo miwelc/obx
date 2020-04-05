@@ -76,14 +76,12 @@ class Observable : IObservable {
 		}
 
 		// Read
-		const T& operator*() const {
+		operator const T&() const {
 			log<LogLevel::DEBUG>("\t\tRead Observable\n");
 			IObservable::markAsObserved();
 			return val;
 		}
-		operator const T&() const { return *(*this); }
 		const T& operator()() const { return *this; }
-		const T* operator->() const { return std::pointer_traits<T*>::pointer_to(*this); }
 
 	private:
 		T val;

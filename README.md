@@ -52,7 +52,8 @@ You can access its stored state by:
     std::cout << "Birth year: " << birthYear << std::endl;
     ```
   - If its stored state is not tainted, subsequent uses won't execute again the function.
-  - It it gets tainted, the function will be executed lazily when the *computed* gets accessed again.
+  - If it gets tainted, the function will be executed lazily when the *computed* gets accessed again.
+  - *Computed values* are **read-only**.
 
 ### Actions
 *Observables* may only be modified by *actions*. You can create an action by:
@@ -141,4 +142,23 @@ obx::runInAction([&]() {
 You can disable/enable a *reaction* using its `disable()` and `enable()` methods.
 If you want to declare a *reaction* but enable it later on, you can do so: `obx::Reaction r(observerCB, notTrackingCB, false)`.
 
+### Limitations
+When calling a non-const method/operator of an *observable* you must use the dereference operator `*` (or the `->` operator) to indicate you want to mutate it:
+```c++
+obx::Observable str = "Hello"s;
+str->clear(); // ok
+(*str).clear(); // ok
+str().clear(); // error
+```
+
+When calling a const method/operator you just use the `()` operator:
+```c++
+const obx::Observable constStr = "Hello"s;
+constStr().size(); // ok
+constStr->size(); // error, constStr is const
+
+obx::Observable str = "Hello"s;
+str().size(); // ok
+str->size(); // error, mutating str outside an action
+```
 

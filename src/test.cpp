@@ -1,6 +1,7 @@
 #include "obx/obx.h"
 
 #include <cstdint>
+#include <string>
 
 using namespace std::string_literals;
 
@@ -42,6 +43,11 @@ int main(int argc, char* argv[]) {
 
 	// error: outside action
 	// n = 1;
+
+	std::cout << "str size: " << str().size() << std::endl;
+
+	// error: outside an action (-> is a write only operator)
+	// std::cout << "str size: " << str->size() << std::endl;
 
 	std::cout << c() << std::endl;
 
