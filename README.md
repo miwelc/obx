@@ -1,6 +1,6 @@
 # obx
 
-**obx** is a C++17 reactive programming library heavily inspired by [MobX JS](https://mobx.js.org/README.html). **obx** borrows its *observer/observable* pattern with derived states (*computed*). In essence:
+**obx** is a C++17 reactive programming library heavily inspired by [MobX JS](https://mobx.js.org/README.html). **obx** borrows its *observer/observable* pattern with derived states (*computed values*). In essence:
 
   - *Actions* modify the state (*observables*).
   - These modified *observables* trigger changes in other derived *observables* (*computed values*).
