@@ -4,6 +4,12 @@
 
 using namespace std::string_literals;
 
+void actionF(obx::Observable<std::string>& str) {
+	obx::Action _;
+
+	str = "bueeenas";
+}
+
 int main(int argc, char* argv[]) {
 	obx::Observable n = 3;
 	obx::Observable str = "maaaalas"s;
@@ -39,9 +45,7 @@ int main(int argc, char* argv[]) {
 
 	std::cout << c() << std::endl;
 
-	obx::runInAction([&]() {
-		str = "bueeenas";
-	});
+	actionF(str);
 
 	std::cout << c() << " yeaahhaha" << std::endl;
 

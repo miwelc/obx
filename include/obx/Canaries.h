@@ -6,6 +6,9 @@
 #include <cstdint>
 
 namespace obx {
+
+using Action = ActionCanary;
+
 namespace {
 
 class Canary {

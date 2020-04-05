@@ -1,7 +1,7 @@
 #ifndef __OBSERVABLE_CPP__
 #define __OBSERVABLE_CPP__
 
-#include "../observable.hpp"
+#include "../Observable.hpp"
 
 #include "../State.h"
 #include "../Observer.h"
