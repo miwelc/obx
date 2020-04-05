@@ -146,9 +146,11 @@ If you want to declare a *reaction* but enable it later on, you can do so: `obx:
 When calling a non-const method/operator of an *observable* you must use the dereference operator `*` (or the `->` operator) to indicate you want to mutate it:
 ```c++
 obx::Observable str = "Hello"s;
-str->clear(); // ok
-(*str).clear(); // ok
-str().clear(); // error
+obx::runInAction([&]() {
+    str->clear(); // ok
+    (*str).clear(); // ok
+    str().clear(); // error: ref is const
+});
 ```
 
 When calling a const method/operator you just use the `()` operator:
