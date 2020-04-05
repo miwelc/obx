@@ -44,8 +44,8 @@ You can access its stored state by:
   - Any stateless function returning a value may be used.
     ```c++
     obx::Computed<int> birthYear([&]() {
-		return currentYear - obsAge;
-	});
+        return currentYear - obsAge;
+    });
     ```
   - You can then use it the same way as normal *observables*:
     ```c++
@@ -79,10 +79,10 @@ If an *action* changes an *observable*, accessing any *computed* that uses that 
 ```c++
 obx::Observable n = 1;
 obx::Computed<int> derived1([&]() {
-	return n * 2;
+    return n * 2;
 });
 obx::Computed<float> derived2([&]() {
-	return derived1 * 1.5;
+    return derived1 * 1.5;
 });
 
 std::cout << derived2 << std::endl; // Output: 3.0
@@ -100,7 +100,7 @@ Some times you may want to automatically detect changes in the state. You can do
 ```c++
 obx::Observable n = 1;
 obx::Autorun a([&]() {
-	std::cout << "N: " << n << std::endl;
+    std::cout << "N: " << n << std::endl;
 });
 // Output: "N: 1"
 obx::runInAction([&]() {
@@ -123,7 +123,7 @@ obx::Reaction r([&]() {
     a(); // Using '()' to avoid a 'unused-value' warning
 }, [&]() {
     // Observable accesses here don't get tracked
-	std::cout << "a: " << a << ", b: " << b << std::endl;
+    std::cout << "a: " << a << ", b: " << b << std::endl;
 });
 // Output: "a: 1, b: 1"
 obx::runInAction([&]() {
