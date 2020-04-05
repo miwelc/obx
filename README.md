@@ -73,6 +73,8 @@ You can access its stored state by:
     });
     ```
 
+If an *observable* type has a defined T == T operator and is move constructible, then only changes that evaluates preVal == postVal to false get notified to its *observers*. In essence, if you assign the same value to an observable, there won't be any side-effects.
+
 ### Derived state flow
 If an *action* changes an *observable*, accessing any *computed* that uses that observable will compute a new derived value and cache it for future accesses. Even if a *computed* gets invalidated, no derived value gets recomputed until it's actually used.
 

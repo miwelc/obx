@@ -11,6 +11,17 @@
 
 namespace obx {
 
+namespace {
+	template<class, class = std::void_t<>>
+	struct has_equal_operator : std::false_type { };
+
+	template<class T>
+	struct has_equal_operator<T, std::void_t<decltype(std::declval<T>() == std::declval<T>())>> : std::true_type { };
+
+	template<class T>
+	inline constexpr bool has_equal_operator_v = has_equal_operator<T>::value;
+}
+
 class IObservable {
 	public:
 		IObservable(const IObservable&) = delete;
@@ -40,18 +51,29 @@ class Observable : IObservable {
 
 		// Write
 		T& operator*() {
-			log<LogLevel::DEBUG>("\t\tWrite\n");
-			if(obx::state.isInAction() == false) {
-				log<LogLevel::EXCEPTION>("Mutating observable outside an action");
-			}
-
+			checkWrite();
 			IObservable::invalidateObservers();
-
 			return val;
 		}
-		template<class Arg>
-		Observable& operator=(Arg&& arg) { *(*this) = std::forward<Arg>(arg); return *this; }
 		T* operator->() { return std::pointer_traits<T*>::pointer_to(*(*this)); }
+
+		template<class Arg>
+		Observable& operator=(Arg&& arg) {
+			checkWrite();
+
+			if constexpr(std::is_move_constructible_v<T> && has_equal_operator_v<T>) {
+				const T tmp(std::move(val));
+				val = std::forward<Arg>(arg);
+				if(!(tmp == val)) {
+					IObservable::invalidateObservers();
+				}
+			}
+			else {
+				val = std::forward<Arg>(arg);
+				IObservable::invalidateObservers();
+			}
+			return *this;
+		}
 
 		// Read
 		const T& operator*() const {
@@ -65,6 +87,13 @@ class Observable : IObservable {
 
 	private:
 		T val;
+
+		void checkWrite() const {
+			log<LogLevel::DEBUG>("\t\tWrite\n");
+			if(obx::state.isInAction() == false) {
+				log<LogLevel::EXCEPTION>("Mutating observable outside an action");
+			}
+		}
 };
 
 }
