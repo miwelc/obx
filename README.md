@@ -12,7 +12,7 @@ cd include/obx
 make clean && make
 ```
 This will produce a `libobx.a` that can be statically linked to your application.
-When using the library this way, don't forget to globally define `OBX_AS_LIB`. You can do that as a compiler flag `-D OBX_AS_LIB` or adding a `#define OBX_AS_LIB` on top of `obx/obx.h`.
+When using the library this way, don't forget to globally define `OBX_AS_LIB`. You can do that as a compiler flag `-D OBX_AS_LIB` or adding a `#define OBX_AS_LIB` on top of `obx/obx.h`. Now you can remove `include/obx/impl`.
 
 ### Observables
 *Observables* wrap some state that may be *observed* (tracked for changes).
