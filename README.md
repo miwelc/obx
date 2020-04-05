@@ -24,7 +24,7 @@ When using the library this way, don't forget to globally define `OBX_AS_LIB`. Y
     ```
   - Or taking advantage of c++17 class template argument deduction:
     ```c++
-    obx::Observable obsName = "maaaalas"s;
+    obx::Observable obsName = "Thomas"s;
     obx::Observable obsAge = 25;
     ```
 
