@@ -3,6 +3,8 @@
 
 #include "fwd_decl.h"
 
+#include "Observer.h"
+
 #include <functional>
 
 namespace obx {
@@ -21,8 +23,8 @@ class Autorun : protected Observer {
 		virtual void markAsTainted() const override;
 		virtual void run() const;
 
-	friend class obx::ActionCanary;
-	friend class obx::State;
+	friend class obx::__::ActionCanary;
+	friend class obx::__::State;
 };
 
 }

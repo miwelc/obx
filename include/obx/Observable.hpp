@@ -11,7 +11,7 @@
 
 namespace obx {
 
-namespace {
+namespace __ {
 	template<class, class = std::void_t<>>
 	struct has_equal_operator : std::false_type { };
 
@@ -43,6 +43,8 @@ class IObservable {
 
 template<class T>
 class Observable : IObservable {
+	using LogLevel = __::LogLevel;
+
 	public:
 		template<class... Args>
 		Observable(Args&&... args) : val(std::forward<Args>(args)...) { }
@@ -61,7 +63,7 @@ class Observable : IObservable {
 		Observable& operator=(Arg&& arg) {
 			checkWrite();
 
-			if constexpr(std::is_move_constructible_v<T> && has_equal_operator_v<T>) {
+			if constexpr(std::is_move_constructible_v<T> && __::has_equal_operator_v<T>) {
 				const T tmp(std::move(val));
 				val = std::forward<Arg>(arg);
 				if(!(tmp == val)) {
@@ -77,7 +79,7 @@ class Observable : IObservable {
 
 		// Read
 		operator const T&() const {
-			log<LogLevel::DEBUG>("\t\tRead Observable\n");
+			__::log<LogLevel::DEBUG>("\t\tRead Observable\n");
 			IObservable::markAsObserved();
 			return val;
 		}
@@ -87,9 +89,9 @@ class Observable : IObservable {
 		T val;
 
 		void checkWrite() const {
-			log<LogLevel::DEBUG>("\t\tWrite\n");
-			if(obx::state.isInAction() == false) {
-				log<LogLevel::EXCEPTION>("Mutating observable outside an action");
+			__::log<LogLevel::DEBUG>("\t\tWrite\n");
+			if(obx::__::state.isInAction() == false) {
+				__::log<LogLevel::EXCEPTION>("Mutating observable outside an action");
 			}
 		}
 };

@@ -14,7 +14,7 @@ Observer::Observer(std::function<void(void)>&& f) : f(std::move(f)) { }
 Observer::~Observer() { stopObserving(); }
 
 void Observer::observe() const {
-	ObserverCanary observerCanary(this);
+	__::ObserverCanary observerCanary(this);
 	stopObserving();
 	f();
 	tainted = false;

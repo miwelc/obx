@@ -2,7 +2,7 @@
 #define __AUTORUN_CPP__
 
 #include "../Autorun.h"
-#include "../Observer.h"
+#include "../State.h"
 
 namespace obx {
 
@@ -28,7 +28,7 @@ void Autorun::disable() {
 
 void Autorun::markAsTainted() const {
 	Observer::markAsTainted();
-	obx::state.addAutorun(this);
+	obx::__::state.addAutorun(this);
 }
 
 void Autorun::run() const {

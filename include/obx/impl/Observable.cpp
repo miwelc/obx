@@ -13,8 +13,8 @@ bool IObservable::isBeingObserved() const {
 }
 
 void IObservable::markAsObserved() const {
-	if(obx::state.isInObserver()) {
-		const Observer* observerPtr = obx::state.currentObserver();
+	if(obx::__::state.isInObserver()) {
+		const Observer* observerPtr = obx::__::state.currentObserver();
 		addObserver(observerPtr);
 		observerPtr->addObservable(this);
 	}

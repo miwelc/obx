@@ -5,12 +5,10 @@
 
 #include "../Canaries.h"
 
-#include <functional>
-
 namespace obx {
 
 OBX_INLINE void runInAction(const std::function<void(void)>& f) {
-	ActionCanary actionCanary;
+	Action _;
 	f();
 }
 

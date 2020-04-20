@@ -9,7 +9,7 @@ namespace obx {
 	template<class T> class Observable;
 	template<class T> class Computed;
 
-	namespace {
+	namespace __ {
 		class State;
 		class Canary;
 		class ObserverCanary;

@@ -6,7 +6,7 @@
 #include <iostream>
 
 namespace obx {
-namespace {
+namespace __ {
 
 	enum class LogLevel : uint32_t {
 		DEBUG = 0,

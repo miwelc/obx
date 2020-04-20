@@ -9,6 +9,8 @@ namespace obx {
 
 template<class T>
 class Computed : protected Observer, protected IObservable {
+	using LogLevel = __::LogLevel;
+
 	public:
 		Computed(const std::function<T(void)>& f)
 			: Observer([this, f]() { val = f(); }) { }
@@ -18,9 +20,9 @@ class Computed : protected Observer, protected IObservable {
 		Computed(const Computed&) = delete;
 
 		const T& operator()() {
-			log<LogLevel::DEBUG>("\t\tRead Computed\n");
+			__::log<LogLevel::DEBUG>("\t\tRead Computed\n");
 			if(Observer::tainted) {
-				log<LogLevel::DEBUG>("\t\tComputing\n");
+				__::log<LogLevel::DEBUG>("\t\tComputing\n");
 				Observer::observe();
 			}
 			IObservable::markAsObserved();

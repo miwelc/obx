@@ -3,13 +3,15 @@
 
 #include "fwd_decl.h"
 
+#include "State.h"
+
 #include <cstdint>
 
 namespace obx {
 
-using Action = ActionCanary;
+using Action = __::ActionCanary;
 
-namespace {
+namespace __ {
 
 class Canary {
 	protected:

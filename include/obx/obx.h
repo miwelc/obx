@@ -1,7 +1,7 @@
 #ifndef __OBX_H__
 #define __OBX_H__
 
-#ifdef OBX_AS_LIB
+#if defined(OBX_AS_LIB) || defined(BUILD_OBX_LIB)
 	#define OBX_INLINE
 #else
 	#define OBX_INLINE inline
@@ -17,7 +17,7 @@
 #include "Canaries.h"
 #include "utils.h"
 
-#ifndef OBX_AS_LIB
+#if !defined(OBX_AS_LIB) && !defined(BUILD_OBX_LIB)
 
 #include "impl/State.cpp"
 #include "impl/Observable.cpp"

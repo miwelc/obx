@@ -9,11 +9,11 @@
 #include "../log.h"
 
 namespace obx {
-namespace {
+namespace __ {
 
 // Canary
-Canary::Canary() : oldStateMode(obx::state.mode) { }
-Canary::~Canary() { obx::state.mode = oldStateMode; }
+Canary::Canary() : oldStateMode(obx::__::state.mode) { }
+Canary::~Canary() { obx::__::state.mode = oldStateMode; }
 
 // ActionCanary
 
@@ -22,32 +22,32 @@ namespace {
 }
 
 ActionCanary::ActionCanary() {
-	if(obx::state.isInObserver()) {
+	if(obx::__::state.isInObserver()) {
 		log<LogLevel::EXCEPTION>("Cannot run action inside an observer");
 	}
-	obx::state.mode = State::Mode::ACTION;
+	obx::__::state.mode = State::Mode::ACTION;
 	ActionCannaryNestingLevels++;
 }
 
 ActionCanary::~ActionCanary() noexcept(false) {
 	if(--ActionCannaryNestingLevels == 0) {
-		obx::state.mode = Canary::oldStateMode;
+		obx::__::state.mode = Canary::oldStateMode;
 
-		for(const auto autorun : obx::state.pendingAutoruns) {
+		for(const auto autorun : obx::__::state.pendingAutoruns) {
 			autorun->run();
 		}
-		obx::state.pendingAutoruns.clear();
+		obx::__::state.pendingAutoruns.clear();
 	}
 }
 
 // ObserverCanary
-ObserverCanary::ObserverCanary(const Observer* observer) : oldObserverPtr(obx::state.observerPtr) {
-	obx::state.mode = State::Mode::OBSERVER;
-	obx::state.observerPtr = observer;
+ObserverCanary::ObserverCanary(const Observer* observer) : oldObserverPtr(obx::__::state.observerPtr) {
+	obx::__::state.mode = State::Mode::OBSERVER;
+	obx::__::state.observerPtr = observer;
 }
 
 ObserverCanary::~ObserverCanary() {
-	obx::state.observerPtr = oldObserverPtr;
+	obx::__::state.observerPtr = oldObserverPtr;
 }
 
 }

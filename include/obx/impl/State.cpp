@@ -4,7 +4,15 @@
 #include "../State.h"
 
 namespace obx {
-namespace {
+namespace __ {
+
+bool State::isInObserver() const {
+	return mode == Mode::OBSERVER;
+}
+
+bool State::isInAction() const {
+	return mode == Mode::ACTION;
+}
 
 const Observer* State::currentObserver() const {
 	return observerPtr;

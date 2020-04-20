@@ -31,7 +31,7 @@ $(OBJDIRS):
 	mkdir -p $@
 
 $(OBJDIR)/%.o:	$(SRCDIR)/%.cpp
-	$(CXX) -c $(CPPFLAGS) $< -o $@ -include obx.h
+	$(CXX) -c $(CPPFLAGS) $< -o $@ -include obx.h -DBUILD_OBX_LIB
 
 clean:
 	rm -rf $(OBJDIR)/ $(LIBDIR)/libobx.a

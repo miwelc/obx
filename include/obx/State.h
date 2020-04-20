@@ -7,13 +7,13 @@
 #include <unordered_set>
 
 namespace obx {
-namespace {
+namespace __ {
 
 class State {
 	public:
 		State() { }
-		bool isInObserver() const { return mode == Mode::OBSERVER; }
-		bool isInAction() const { return mode == Mode::ACTION; }
+		bool isInObserver() const;
+		bool isInAction() const;
 		const Observer* currentObserver() const;
 
 	private:
@@ -29,9 +29,9 @@ class State {
 
 		void addAutorun(const Autorun* autorun);
 
-	friend class obx::Canary;
-	friend class obx::ActionCanary;
-	friend class obx::ObserverCanary;
+	friend class obx::__::Canary;
+	friend class obx::__::ActionCanary;
+	friend class obx::__::ObserverCanary;
 	friend class obx::Autorun;
 };
 
