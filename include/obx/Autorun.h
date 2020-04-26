@@ -13,8 +13,10 @@ class Autorun : protected Observer {
 	public:
 		Autorun(const std::function<void(void)>& f, bool enabled = true);
 		Autorun(std::function<void(void)>&& f, bool enabled = true);
-		Autorun(Autorun&&) = delete;
+		Autorun(Autorun&&) = default;
 		Autorun(const Autorun&) = delete;
+
+		virtual ~Autorun() = default;
 
 		void enable();
 		void disable();

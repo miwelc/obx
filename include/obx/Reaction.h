@@ -15,8 +15,10 @@ class Reaction : public Autorun {
 		Reaction(CB&& autorunCB, CB&& then, bool enabled = true);
 		Reaction(CB&& autorunCB, const CB& then, bool enabled = true);
 		Reaction(const CB& autorunCB, CB&& then, bool enabled = true);
-		Reaction(Reaction&&) = delete;
+		Reaction(Reaction&&) = default;
 		Reaction(const Reaction&) = delete;
+
+		virtual ~Reaction() = default;
 
 	private:
 		CB then;

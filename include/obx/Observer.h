@@ -12,10 +12,10 @@ class Observer {
 	public:
 		Observer(const std::function<void(void)>& f);
 		Observer(std::function<void(void)>&& f);
-		Observer(Observer&&) = delete;
+		Observer(Observer&& other);
 		Observer(const Observer&) = delete;
 
-		~Observer();
+		virtual ~Observer();
 
 		void observe() const;
 		void stopObserving() const;
@@ -24,11 +24,12 @@ class Observer {
 		virtual void markAsTainted() const;
 
 	protected:
-		const std::function<void(void)> f;
+		std::function<void(void)> f;
 		mutable std::unordered_set<const IObservable*> observables;
 		mutable bool tainted = true;
 
 		void addObservable(const IObservable* observable) const;
+		void removeObservable(const IObservable* observable) const;
 
 	friend class obx::IObservable;
 };

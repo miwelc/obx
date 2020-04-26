@@ -8,6 +8,15 @@
 
 namespace obx {
 
+IObservable::IObservable(IObservable&& other)
+	: observers(std::move(other.observers))
+{
+	for(auto observerPtr : observers) {
+		observerPtr->removeObservable(&other);
+		observerPtr->addObservable(this);
+	}
+}
+
 bool IObservable::isBeingObserved() const {
 	return !observers.empty();
 }

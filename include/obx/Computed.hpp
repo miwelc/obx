@@ -13,11 +13,17 @@ class Computed : protected Observer, protected IObservable {
 
 	public:
 		Computed(const std::function<T(void)>& f)
-			: Observer([this, f]() { val = f(); }) { }
+			: Observer([this]() { val = Computed::f(); }), f(f) { }
 		Computed(std::function<T(void)>&& f)
-			: Observer([this, f = std::move(f)]() { val = f(); }) { }
-		Computed(Computed&&) = delete;
+			: Observer([this]() { val = Computed::f(); }), f(std::move(f)) { }
+		Computed(Computed&& other)
+			: Observer(std::move(other)), f(std::move(other.f)), val(other.isTainted() ? T() : std::move(other.val))
+		{
+			Observer::f = [this]() { val = Computed::f(); };
+		}
 		Computed(const Computed&) = delete;
+
+		virtual ~Computed() = default;
 
 		const T& operator()() {
 			__::log<LogLevel::DEBUG>("\t\tRead Computed\n");
@@ -37,6 +43,7 @@ class Computed : protected Observer, protected IObservable {
 		}
 
 	private:
+		std::function<T(void)> f;
 		T val;
 };
 

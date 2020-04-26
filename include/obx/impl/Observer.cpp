@@ -10,6 +10,14 @@ namespace obx {
 
 Observer::Observer(const std::function<void(void)>& f) : f(f) { }
 Observer::Observer(std::function<void(void)>&& f) : f(std::move(f)) { }
+Observer::Observer(Observer&& other)
+	: f(std::move(other.f)), observables(std::move(other.observables)), tainted(other.tainted)
+{
+	for(auto observablePtr : observables) {
+		observablePtr->removeObserver(&other);
+		observablePtr->addObserver(this);
+	}
+}
 
 Observer::~Observer() { stopObserving(); }
 
@@ -35,6 +43,10 @@ void Observer::markAsTainted() const { tainted = true; }
 
 void Observer::addObservable(const IObservable* observable) const {
 	observables.insert(observable);
+}
+
+void Observer::removeObservable(const IObservable* observable) const {
+	observables.erase(observable);
 }
 
 }

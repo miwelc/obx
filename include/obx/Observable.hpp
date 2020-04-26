@@ -24,8 +24,8 @@ namespace __ {
 
 class IObservable {
 	public:
+		IObservable(IObservable&&);
 		IObservable(const IObservable&) = delete;
-		IObservable(IObservable&&) = delete;
 
 		bool isBeingObserved() const;
 		void markAsObserved() const;
@@ -46,6 +46,7 @@ class Observable : IObservable {
 	using LogLevel = __::LogLevel;
 
 	public:
+		Observable(Observable&&) = default;
 		template<class... Args>
 		Observable(Args&&... args) : val(std::forward<Args>(args)...) { }
 		Observable(const T& arg) : val(arg) { }
